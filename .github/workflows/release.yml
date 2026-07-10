@@ -39,7 +39,7 @@ jobs:
           - name: Windows
             runner: windows-latest
             preset: windows
-            bindir: build/bin/RelWithDebInfo
+            bindir: build/bin
             stem: SimpleLANGame-windows-x86_64
             archive: SimpleLANGame-windows-x86_64.zip
 
@@ -57,6 +57,10 @@ jobs:
         run: brew install ninja sdl2 libsodium
 
       # Windows: SDL2 + libsodium are fetched and built from source by CMake.
+      # Ninja + cl needs the MSVC environment set up first.
+      - name: Set up MSVC developer environment (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Configure
         run: cmake --preset ${{ matrix.preset }}

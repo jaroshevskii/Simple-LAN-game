@@ -59,7 +59,7 @@ public:
 	// clear object
 	void Clear();
 
-	CTextureObject& operator=(CTextureObject& texture);
+	CTextureObject& operator=(const CTextureObject& texture);
 	CTextureObject& operator=(CTextureObject&& texture) noexcept;
 
 };

@@ -19,6 +19,7 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
+#include <algorithm> // std::find etc. (GCC does not pull it in transitively)
 
 
 // SDL2 headers

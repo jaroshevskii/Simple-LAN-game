@@ -214,7 +214,7 @@ void CTextureObject::Save(CFileName& strFileName)
 }
 
 
-CTextureObject& CTextureObject::operator=(CTextureObject& texture)
+CTextureObject& CTextureObject::operator=(const CTextureObject& texture)
 {
 	if (this != &texture) 
 	{

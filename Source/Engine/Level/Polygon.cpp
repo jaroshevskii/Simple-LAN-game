@@ -256,7 +256,7 @@ void CPolygonWorld::Prepare()
 	renderPrepared = true;
 }
 
-CPolygonWorld& CPolygonWorld::operator=(CPolygonWorld& polygon)
+CPolygonWorld& CPolygonWorld::operator=(const CPolygonWorld& polygon)
 {
 	this->pr_flags = polygon.pr_flags;
 	this->tex01FileName = polygon.tex01FileName;

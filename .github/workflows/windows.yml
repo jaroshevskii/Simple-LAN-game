@@ -19,6 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The preset uses Ninja + cl, so it works on any runner image regardless
+      # of the installed Visual Studio version (no hard-coded VS generator).
+      - name: Set up MSVC developer environment
+        uses: ilammy/msvc-dev-cmd@v1
+
       # SDL2 and libsodium are not preinstalled on the Windows runners, so the
       # CMake FetchContent fallback builds them from source automatically.
       - name: Configure
@@ -27,10 +32,9 @@ jobs:
       - name: Build
         run: cmake --build --preset windows
 
-      # the Visual Studio generator puts binaries in a per-config subdirectory
       - name: Verify runtime files
         shell: bash
-        run: ./scripts/check-runtime-files.sh build/bin/RelWithDebInfo
+        run: ./scripts/check-runtime-files.sh build/bin
 
       - name: Test
         run: ctest --preset windows

@@ -84,7 +84,7 @@ public:
 	// clear polygon object
 	ENGINE_API void Clear(void);
 	// copy polygon world
-	ENGINE_API CPolygonWorld& operator=(CPolygonWorld& newFilename);
+	ENGINE_API CPolygonWorld& operator=(const CPolygonWorld& newFilename);
 
 	ENGINE_API CGameWorld* getWorld(void);
 

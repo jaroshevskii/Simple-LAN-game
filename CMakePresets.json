@@ -22,9 +22,8 @@
     },
     {
       "name": "windows",
-      "displayName": "Windows (Visual Studio)",
-      "generator": "Visual Studio 17 2022",
-      "binaryDir": "${sourceDir}/build",
+      "displayName": "Windows (Ninja + MSVC)",
+      "inherits": "default",
       "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" }
     },
     {
@@ -40,13 +39,13 @@
     { "name": "default", "configurePreset": "default" },
     { "name": "linux", "configurePreset": "linux" },
     { "name": "macos", "configurePreset": "macos" },
-    { "name": "windows", "configurePreset": "windows", "configuration": "RelWithDebInfo" },
+    { "name": "windows", "configurePreset": "windows" },
     { "name": "debug", "configurePreset": "debug" }
   ],
   "testPresets": [
     { "name": "default", "configurePreset": "default", "output": { "outputOnFailure": true } },
     { "name": "linux", "configurePreset": "linux", "output": { "outputOnFailure": true } },
     { "name": "macos", "configurePreset": "macos", "output": { "outputOnFailure": true } },
-    { "name": "windows", "configurePreset": "windows", "configuration": "RelWithDebInfo", "output": { "outputOnFailure": true } }
+    { "name": "windows", "configurePreset": "windows", "output": { "outputOnFailure": true } }
   ]
 }
