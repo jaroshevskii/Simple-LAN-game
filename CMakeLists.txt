@@ -76,7 +76,7 @@ else()
   FetchContent_Declare(
     sodium
     GIT_REPOSITORY https://github.com/robinlinden/libsodium-cmake.git
-    GIT_TAG 6afeff2  # wraps libsodium 1.0.20
+    GIT_TAG 9b2848dfc1b917a9410f0de9d81059b26cbfaa8d  # master 2026-05-29; pulls libsodium as a submodule
   )
   FetchContent_MakeAvailable(sodium)
   set(SODIUM_TARGET sodium)
