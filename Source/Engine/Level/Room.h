@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Engine\Common\FileName.h>
-#include <Engine\Graphics\Texture.h>
-#include <Engine\Graphics\Shader.h>
+#include <Engine/Common/FileName.h>
+#include <Engine/Graphics/Texture.h>
+#include <Engine/Graphics/Shader.h>
 
 
 class CPortalRoom
@@ -37,8 +37,8 @@ class CPolygonWorld
 {
 public:
 
-	unsigned long pr_flags; // physhics/rendering flags	
-	unsigned long tag;      // tag for fast search
+	unsigned int pr_flags; // physhics/rendering flags	
+	unsigned int tag;      // tag for fast search
 
 	std::vector<CVertex>verticies;    // verticies of polygon	
 	std::vector<glm::vec2>textureUVs; // texture uv for polygon
@@ -101,7 +101,7 @@ private:
 class CRoomBase
 {
 public:
-	unsigned long uRoomID;
+	unsigned int uRoomID;
 
 	std::vector<CPolygonWorld> ro_polygons;
 

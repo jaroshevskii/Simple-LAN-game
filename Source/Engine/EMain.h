@@ -5,16 +5,13 @@
 ----------------> Basic headers <----------------
 */
 
-// C headers
+// C headers (platform specific stuff lives in Platform.h)
 
-#include <winsock2.h>
-#include <iphlpapi.h>
-#include <ws2tcpip.h>
-#include <Windows.h>
+#include "Common/Platform.h"
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <string.h>
-#include <Math.h>
+#include <math.h>
 
 
 // C++ headers

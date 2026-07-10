@@ -46,11 +46,11 @@ public:
 	// clear font
 	ENGINE_API void Clear(void);
 	// get vbo
-	__forceinline unsigned int getVBO(void) { return VBO; }
+	POWER_INLINE unsigned int getVBO(void) { return VBO; }
 	// get vao
-	__forceinline unsigned int getVAO(void) { return VAO; }
+	POWER_INLINE unsigned int getVAO(void) { return VAO; }
 	// get ebo
-	__forceinline unsigned int getEBO(void) { return EBO; }
+	POWER_INLINE unsigned int getEBO(void) { return EBO; }
 private:
 	void prepare(void);
 private:

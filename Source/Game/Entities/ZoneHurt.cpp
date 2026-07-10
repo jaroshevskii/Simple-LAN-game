@@ -31,7 +31,6 @@ void CZone::Save(CFileStream& stream)
 
 CZoneHurt::CZoneHurt() 
 {
-	CPhysicsEntity::CPhysicsEntity();
 
 	m_strClassName = "ZoneHurt";
 	m_ulFlags |= PHYS_ENTITY;

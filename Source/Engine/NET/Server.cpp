@@ -2,10 +2,10 @@
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS 
 
-#include "Netmain.h"
+#include "NetMain.h"
 
-#include <Engine\Common\Console.h>
-#include <Engine\Common\PrintMessages.h>
+#include <Engine/Common/Console.h>
+#include <Engine/Common/PrintMessages.h>
 
 Network::NetData netDataGlobals;
 

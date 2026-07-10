@@ -92,8 +92,8 @@ void CPolygonWorld::processData()
 
 void CPolygonWorld::Save(CFileStream& file) 
 {
-	file.WriteToFile(&tag, sizeof(unsigned long));
-	file.WriteToFile(&pr_flags, sizeof(unsigned long));
+	file.WriteToFile(&tag, sizeof(unsigned int));
+	file.WriteToFile(&pr_flags, sizeof(unsigned int));
 	//file.WriteToFile(&notRender, sizeof(unsigned int));
 
 	FileDeleteAbsolutePatch(tex01FileName);
@@ -136,8 +136,8 @@ void CPolygonWorld::Load(CFileStream& file)
 
 	CVertex vtx;
 
-	file.ReadFromFile(&tag, sizeof(unsigned long));
-	file.ReadFromFile(&pr_flags, sizeof(unsigned long));
+	file.ReadFromFile(&tag, sizeof(unsigned int));
+	file.ReadFromFile(&pr_flags, sizeof(unsigned int));
 
 	file.ReadFromFile(&numData, sizeof(unsigned int));
 

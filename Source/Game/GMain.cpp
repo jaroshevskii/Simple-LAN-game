@@ -292,7 +292,7 @@ bool NewGame(void)
     {
         serverSetUP(FileName);
     }
-    catch (char* e) 
+    catch (const char* e) 
     {
         PrintF("Cannot create server\n%s\n", e);
         Network::closeServer();
@@ -313,7 +313,7 @@ bool JoinGame(void)
         clientSetUp(FileName);
         proccessConnectToServer();
     }
-    catch (char* e) 
+    catch (const char* e) 
     {
         PrintF("Cannot join game:\n%s\n", e);
         Network::closeClient();
@@ -586,7 +586,7 @@ bool LoadWorld(const char* strName)
     //{
     //    Network::startServer();
     //}
-    //catch (char* e) 
+    //catch (const char* e) 
     //{
     //    PrintF("Cannot create server: %s\n", e);
     //}
@@ -1325,6 +1325,7 @@ Game_t* GameCreate(void)
     return Game;
 }
 
+#ifdef _WIN32
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -1340,3 +1341,4 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     return TRUE;
 }
+#endif

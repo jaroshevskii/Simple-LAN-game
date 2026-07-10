@@ -1,9 +1,9 @@
 #include <stdAfx.h>
 
 #include "Import3D.h"
-#include <Engine\Common\FileName.h>
-#include <Engine\Common\PrintMessages.h>
-#include <Engine\Common\Console.h>
+#include <Engine/Common/FileName.h>
+#include <Engine/Common/PrintMessages.h>
+#include <Engine/Common/Console.h>
 
 
 void CFileOBJ::GetFaceFromOBJ(char* str, int* arr)

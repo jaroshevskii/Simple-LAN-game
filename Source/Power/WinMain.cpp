@@ -19,19 +19,27 @@ int wnd_iScreenH = 480;
 // load main game list of function pointers
 typedef Game_t* (*CREATE_GAME)(void);
 // game pointer
-extern Game_t* Game = NULL;
+Game_t* Game = NULL;
 
 
 // Get command to Game Dlly
 //Game_GetCmd Game_GetCommand;
 
-HINSTANCE hGameDLL;
+// handle of the game shared library (SDL_LoadObject)
+void* hGameDLL;
 
 
-#ifdef _DEBUG 
-	#define DLL_NAME "DGame.dll"
+// name of the game shared library per platform
+#if defined(_WIN32)
+	#ifdef _DEBUG
+		#define DLL_NAME "DGame.dll"
+	#else
+		#define DLL_NAME "Game.dll"
+	#endif
+#elif defined(__APPLE__)
+	#define DLL_NAME "libGame.dylib"
 #else
-	#define DLL_NAME "Game.dll"
+	#define DLL_NAME "libGame.so"
 #endif
 
 /*
@@ -85,8 +93,15 @@ static void WindowInit(WindowCanvas_t* wnd)
 	wnd->Wigth  = wnd_iScreenW;
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-		Error("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());			
-	
+		Error("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+
+	// the engine needs OpenGL 4.x; without an explicit request macOS hands
+	// out a legacy 2.1 context (4.1 core is the maximum there)
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
 	wnd->window = SDL_CreateWindow("LAN-Game - alpha v.0.1.", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, wnd->Wigth, wnd->Height, SDL_WINDOW_OPENGL);
 	
 	if (wnd->window == NULL)	
@@ -119,7 +134,7 @@ void SetupFullScreen()
 	}
 	else {
 		bFullScreen = true;
-		SDL_SetWindowFullscreen(ScreenPower.window, 0); // Віконний режим
+		SDL_SetWindowFullscreen(ScreenPower.window, 0); // ВіпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	}
 }
 
@@ -127,16 +142,10 @@ void SetupFullScreen()
 bool ChangeResolutionWindow(VideoResolution_t* res/*, bool bFullScreen = false*/)
 {
 
-	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-
-	int winPosX = (screenWidth - res->width) / 2;
-	int winPosY = (screenHeight - res->height) / 2;
-
 	ScreenPower.Height = res->height;
 	ScreenPower.Wigth = res->width;
 
-	SDL_SetWindowPosition(ScreenPower.window, winPosX, winPosY);
+	SDL_SetWindowPosition(ScreenPower.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
 	SDL_SetWindowSize(ScreenPower.window, res->width, res->height);
 
@@ -151,9 +160,9 @@ void Quit(void)
 {
 	Game->StopGame();
 
-	if (hGameDLL != NULL) 
+	if (hGameDLL != NULL)
 	{
-		FreeLibrary(hGameDLL);
+		SDL_UnloadObject(hGameDLL);
 	}
 	if (Game != NULL) 
 	{
@@ -177,35 +186,48 @@ bool isLibraryLoaded(const char* libraryName)
 			char moduleName[MAX_PATH];
 			if (GetModuleBaseNameA(hProcess, hMods[i], moduleName, sizeof(moduleName) / sizeof(char))) {
 				if (strcmp(moduleName, libraryName) == 0) {
-					return true; // Знайдено завантажену бібліотеку
+					return true; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				}
 			}
 		}
 	}
-	return false; // Бібліотека не знайдена
+	return false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 }
 */
 
 void LoadGameLibrary(const char* strDllName)
 {
 	PrintF("Loading game library: %s\n", strDllName);
-	hGameDLL = LoadLibraryA(strDllName);
+
+	// look next to the executable first, so dlopen/LoadLibrary search
+	// paths don't matter (important on Linux/macOS)
+	char* strBasePath = SDL_GetBasePath();
+	if (strBasePath != NULL)
+	{
+		std::string strFullPath = std::string(strBasePath) + strDllName;
+		SDL_free(strBasePath);
+		hGameDLL = SDL_LoadObject(strFullPath.c_str());
+	}
+	if (hGameDLL == NULL)
+	{
+		hGameDLL = SDL_LoadObject(strDllName);
+	}
 
 	if (hGameDLL == NULL)
 	{
 		/* error */
 		End();
 		//fprintf(stderr, "Error loading game library:\n%s\n", strDllName);
-		Error("Error loading game library:\n%s\n", strDllName);
+		Error("Error loading game library:\n%s\n%s\n", strDllName, SDL_GetError());
 	}
 
-	CREATE_GAME GameCreate = (CREATE_GAME)GetProcAddress(hGameDLL, "GameCreate");	
+	CREATE_GAME GameCreate = (CREATE_GAME)SDL_LoadFunction(hGameDLL, "GameCreate");
 
 	if (GameCreate == NULL)
 	{
 		/* error */
 		End();
-		FreeLibrary(hGameDLL);
+		SDL_UnloadObject(hGameDLL);
 		fprintf(stderr, "Cannot get address \"GameCreate\" from library %s\n", strDllName);
 		Error("Cannot get address \"GameCreate\" from library %s\n", strDllName);
 	}
@@ -217,7 +239,7 @@ void LoadGameLibrary(const char* strDllName)
 	{
 		/* error */
 		End();
-		FreeLibrary(hGameDLL);
+		SDL_UnloadObject(hGameDLL);
 		fprintf(stderr, "Fatal error: failed to create game from %s library!", strDllName);
 		Error("Fatal error: failed to create game from %s library!", strDllName);
 	}

@@ -168,14 +168,14 @@ namespace Network
 
 	void CNetMSG::write64(unsigned long long& ll)
 	{
-		write8((ll >> 56) & 255ui8);
-		write8((ll >> 48) & 255ui8);
-		write8((ll >> 40) & 255ui8);
-		write8((ll >> 32) & 255ui8);
-		write8((ll >> 24) & 255ui8);
-		write8((ll >> 16) & 255ui8);
-		write8((ll >> 8)  & 255ui8);
-		write8((ll >> 0)  & 255ui8);
+		write8((ll >> 56) & (byte)255);
+		write8((ll >> 48) & (byte)255);
+		write8((ll >> 40) & (byte)255);
+		write8((ll >> 32) & (byte)255);
+		write8((ll >> 24) & (byte)255);
+		write8((ll >> 16) & (byte)255);
+		write8((ll >> 8)  & (byte)255);
+		write8((ll >> 0)  & (byte)255);
 	}
 
 	void CNetMSG::writeFloat(const float& f)
@@ -276,14 +276,14 @@ namespace Network
 		read8(&g);
 		read8(&h);
 
-		*ll = (unsigned long long(a) << 56ui64) | 
-			  (unsigned long long(b) << 48ui64) |
-			  (unsigned long long(c) << 40ui64) |
-			  (unsigned long long(d) << 32ui64) |
-			  (unsigned long long(e) << 24ui64) |
-			  (unsigned long long(f) << 16ui64) |
-			  (unsigned long long(g) << 8ui64)  |
-			  (unsigned long long(h) << 0ui64);
+		*ll = (((unsigned long long)(a)) << 56) | 
+			  (((unsigned long long)(b)) << 48) |
+			  (((unsigned long long)(c)) << 40) |
+			  (((unsigned long long)(d)) << 32) |
+			  (((unsigned long long)(e)) << 24) |
+			  (((unsigned long long)(f)) << 16) |
+			  (((unsigned long long)(g)) << 8)  |
+			  (((unsigned long long)(h)) << 0);
 	}
 	void CNetMSG::readFloat(float* f) 
 	{

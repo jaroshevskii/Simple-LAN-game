@@ -186,7 +186,7 @@ void addAnimations(CModelObject* model, const char* fModelScript)
 				try {
 					obj.Load(strFileName);
 				}
-				catch (char* err) {
+				catch (const char* err) {
 					Warning("addAnimations(): Cannot load \"%s\"\n%s", (const char*)strFileName, err);
 					*model = safeTempModel;
 					safeTempModel.Clear();

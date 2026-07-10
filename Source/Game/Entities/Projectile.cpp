@@ -5,7 +5,6 @@
 
 CProjectile::CProjectile(void) 
 {
-	CPhysicsEntity::CPhysicsEntity();
 }
 
 CProjectile::~CProjectile() 

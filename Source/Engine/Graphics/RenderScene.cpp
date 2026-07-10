@@ -1,9 +1,9 @@
 #include <stdAfx.h>
 
 #include "RenderScene.h"
-#include <Level\BaseWorld.h>
-#include <Level\Brush.h>
-#include <Level\Room.h>
+#include <Level/BaseWorld.h>
+#include <Level/Brush.h>
+#include <Level/Room.h>
 #include "SkyBox.h"
 /*
 void RenderViewScene(CGameWorld* wo, CView* view, Matrix4& matLookUp)

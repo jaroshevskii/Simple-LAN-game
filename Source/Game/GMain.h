@@ -123,7 +123,13 @@ DO NOT CHANGE THIS!!!
 
 ///////////////////////////////////////////////////////
 */
-extern "C" __declspec(dllexport) Game_t * GameCreate(void);
+#ifdef _WIN32
+	#define GAME_EXPORT extern "C" __declspec(dllexport)
+#else
+	#define GAME_EXPORT extern "C" __attribute__((visibility("default")))
+#endif
+
+GAME_EXPORT Game_t * GameCreate(void);
 //__declspec(dllexport) void GameEND(void);
 //__declspec(dllexport) void Game_GetCommand(unsigned int iCmd, const string_t Params);
 

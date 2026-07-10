@@ -31,10 +31,46 @@ In total, we have 6 MS Visual Studio projects, only 3 of which are used for the 
 * `Power` Game executable file.
 * `Test` It is not used in the game and game engine at all. It is mainly used to test new features.
 
-Building
---------
+Building (CMake — Windows / Linux / macOS)
+------------------------------------------
 
-The game runs on the Windows operating system, so you need to install Microsoft Visual Studio 2022 or higher to compile the code, but there is a nuance...
+The project is cross-platform and builds with CMake on Windows, Linux and macOS.
+Platform-specific code (Winsock vs BSD sockets, `LoadLibrary` vs `dlopen`, MSVC-isms)
+is isolated in `Source/Engine/Common/Platform.h`; windowing, input and dynamic
+library loading go through SDL2 everywhere.
+
+Install the dependencies first (if they are missing, CMake falls back to
+building them from source automatically):
+
+```sh
+# macOS
+brew install cmake ninja sdl2 libsodium
+
+# Debian / Ubuntu
+sudo apt install cmake ninja-build libsdl2-dev libsodium-dev libgl1-mesa-dev
+
+# Windows: only CMake + Visual Studio 2022 are required
+# (SDL2 and libsodium are fetched and built automatically)
+```
+
+Then configure, build and test with the preset for your OS:
+
+```sh
+cmake --preset linux    # or: macos, windows
+cmake --build --preset linux
+ctest --preset linux
+```
+
+Binaries land in `build/bin`: the `Power` launcher, the `Engine` and `Game`
+shared libraries, plus the `MakeModel` and `Tests` tools. The level `Editor`
+is built on Windows only (it uses Win32 file dialogs).
+
+CI builds all three platforms on every push (see `.github/workflows/`).
+
+Building (legacy Visual Studio solution)
+----------------------------------------
+
+The original Visual Studio solution is still in `Source/Source.sln`. To use it, install Microsoft Visual Studio 2022 or higher to compile the code, but there is a nuance...
 
 As I said, the engine uses third-party libraries, but due to other licences, they were not included in the project except for the `Bullet Engine`, which is included in the `Engine` project itself, and GLM (OpenGL Mathematics).
 

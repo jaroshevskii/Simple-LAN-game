@@ -1,7 +1,7 @@
 #include <stdAfx.h>
 
-#include <Engine\NET\NetMain.h>
-#include <Engine\Common\Console.h>
+#include <Engine/NET/NetMain.h>
+#include <Engine/Common/Console.h>
 
 void sendToServer(byte iClient, Network::CNetMSG* msg) 
 {

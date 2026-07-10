@@ -124,7 +124,7 @@ void clientShutDown()
 void proccessConnectToServer(void) 
 {
 	char string[128];
-	size_t sizestring;
+	unsigned int sizestring;
 
 	/* first we need connect to server */
 	Network::CNetMSG msg;

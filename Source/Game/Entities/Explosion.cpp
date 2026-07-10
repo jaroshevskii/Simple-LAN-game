@@ -4,7 +4,6 @@
 
 CExplosion::CExplosion()
 {
-	CPhysicsEntity::CPhysicsEntity();
 
 	ex_fRadius = 7.f;   
 	ex_iMaxDamage = 100;  

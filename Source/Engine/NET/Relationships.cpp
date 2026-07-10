@@ -2,8 +2,8 @@
 
 #include "NetMain.h"
 
-#include <Engine\Common\Console.h>
-#include <Engine\Common\PrintMessages.h>
+#include <Engine/Common/Console.h>
+#include <Engine/Common/PrintMessages.h>
 #include <Engine/Common/FileName.h>
 
 /*
@@ -289,7 +289,7 @@ namespace Network
 		net_uiSequenceTick++;
 
 		sockaddr_in addrWhere; // address where we getting data
-		int iLenAddr = sizeof(sockaddr_in); // length of address
+		net_socklen_t iLenAddr = sizeof(sockaddr_in); // length of address
 		int iBytes; // num of bytes, without size UDP
 		CNetMSG msg; // msg for stuff things
 		CNetMSG* pMsg = NULL;
@@ -651,7 +651,7 @@ namespace Network
 
 		sockaddr_in serverAddrNew;
 
-		int size = sizeof(serverAddrNew);
+		net_socklen_t size = sizeof(serverAddrNew);
 
 		char buffer[1024];
 

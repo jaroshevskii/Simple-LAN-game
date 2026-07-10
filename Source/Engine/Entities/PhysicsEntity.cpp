@@ -7,7 +7,6 @@
 // make default apperance
 CPhysicsEntity::CPhysicsEntity()
 {
-	CEntityMain::CEntityMain();
 
 	m_fAcceleration = 320.f;
 	m_fDeAcceleration = 100.0f;

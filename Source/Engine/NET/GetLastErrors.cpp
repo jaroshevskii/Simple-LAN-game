@@ -3,9 +3,11 @@
 #include "NetMain.h"
 
 
+#ifdef _WIN32
+
 const char* lastErrorWSA(void)
 {
-	switch (WSAGetLastError()) 
+	switch (WSAGetLastError())
 	{
 	case WSAEINTR:           return "WSAEINTR";
 	case WSAEBADF:           return "WSAEBADF";
@@ -32,7 +34,7 @@ const char* lastErrorWSA(void)
 	case WSAENETDOWN:        return "WSAENETDOWN";
 	case WSAENETUNREACH:     return "WSAENETUNREACH";
 	case WSAENETRESET:       return "WSAENETRESET";
-	case WSAECONNABORTED:    return "WSWSAECONNABORTEDAEINTR";
+	case WSAECONNABORTED:    return "WSAECONNABORTED";
 	case WSAECONNRESET:      return "WSAECONNRESET";
 	case WSAENOBUFS:         return "WSAENOBUFS";
 	case WSAEISCONN:         return "WSAEISCONN";
@@ -54,3 +56,13 @@ const char* lastErrorWSA(void)
 	default:                 return "NO ERROR";
 	}
 }
+
+#else
+
+/* POSIX: socket errors live in errno */
+const char* lastErrorWSA(void)
+{
+	return strerror(errno);
+}
+
+#endif

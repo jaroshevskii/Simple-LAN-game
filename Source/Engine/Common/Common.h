@@ -1,8 +1,10 @@
 #pragma once
 
 
-#pragma warning(disable: 4018) // signed/unsigned dismatch
-#pragma warning(disable: 4244) // unsigned long to byte
+#ifdef _MSC_VER
+	#pragma warning(disable: 4018) // signed/unsigned dismatch
+	#pragma warning(disable: 4244) // unsigned long to byte
+#endif
 
 
 /*
@@ -12,10 +14,14 @@
 #endif
 */
 
-#ifdef ENGINE_EXPORTS
-	#define ENGINE_API __declspec(dllexport)
+#ifdef _WIN32
+	#ifdef ENGINE_EXPORTS
+		#define ENGINE_API __declspec(dllexport)
+	#else
+		#define ENGINE_API __declspec(dllimport)
+	#endif
 #else
-	#define ENGINE_API __declspec(dllimport)
+	#define ENGINE_API __attribute__((visibility("default")))
 #endif
 
 #ifdef _MSC_VER
@@ -69,13 +75,17 @@ POWER_INLINE float _swapFloat( float f )
 	return *(float*)&i;
 }
 
-POWER_INLINE long long _swap64(long long i) 
+POWER_INLINE long long _swap64(long long i)
 {
-
+	unsigned long long u = (unsigned long long)i;
+	u = ((u & 0x00000000FFFFFFFFull) << 32) | ((u & 0xFFFFFFFF00000000ull) >> 32);
+	u = ((u & 0x0000FFFF0000FFFFull) << 16) | ((u & 0xFFFF0000FFFF0000ull) >> 16);
+	u = ((u & 0x00FF00FF00FF00FFull) << 8)  | ((u & 0xFF00FF00FF00FF00ull) >> 8);
+	return (long long)u;
 }
 
 
-__forceinline short LittleShort(short i)
+POWER_INLINE short LittleShort(short i)
 {
 	return _swap16(i);
 }

@@ -3,7 +3,6 @@
 
 CPlayerSpawn::CPlayerSpawn() 
 {
-	CEntityMain::CEntityMain();
 
 	psp_uiStartedWeaponPack = START_WEAPONS_MASK;
 

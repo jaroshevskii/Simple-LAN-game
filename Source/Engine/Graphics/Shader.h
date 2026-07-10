@@ -24,25 +24,25 @@ public:
 
 	void CreateFromString(const char* VertShader, const char* FragShader);
 	// use shader
-	inline void use(void);
+	void use(void);
 	// destroy shader
-	inline void end(void);
+	void end(void);
 
 	// set shaders value
-	inline void shaderSet(const char* strName, const int iValue);
-	inline void shaderSet(const char* strName, const float fValue);
-	inline void shaderSet(const char* strName, const double dValue);
+	void shaderSet(const char* strName, const int iValue);
+	void shaderSet(const char* strName, const float fValue);
+	void shaderSet(const char* strName, const double dValue);
 	// set shaders vectors
-	inline void shaderSetVector(const char* strName, const float fx, const float fy);
-	inline void shaderSetVector(const char* strName, const float fx, const float fy, const float fz);
-	inline void shaderSetVector(const char* strName, const float fx, const float fy, const float fz, const float fw);
+	void shaderSetVector(const char* strName, const float fx, const float fy);
+	void shaderSetVector(const char* strName, const float fx, const float fy, const float fz);
+	void shaderSetVector(const char* strName, const float fx, const float fy, const float fz, const float fw);
 	// set shaders vectors
-	inline void shaderSetVector(const char* strName, const glm::vec2& vector2);
-	inline void shaderSetVector(const char* strName, const glm::vec3& vector3);
-	inline void shaderSetVector(const char* strName, const glm::vec4& vector4);
+	void shaderSetVector(const char* strName, const glm::vec2& vector2);
+	void shaderSetVector(const char* strName, const glm::vec3& vector3);
+	void shaderSetVector(const char* strName, const glm::vec4& vector4);
 	// set shaders matrix
-	inline void shaderSetMatrix(const char* strName, const glm::mat3& matrix3);
-	inline void shaderSetMatrix(const char* strName, const glm::mat4& matrix4);
+	void shaderSetMatrix(const char* strName, const glm::mat3& matrix3);
+	void shaderSetMatrix(const char* strName, const glm::mat4& matrix4);
 
 	inline void shaderSet(uint& ID) { this->shID = ID; }
 

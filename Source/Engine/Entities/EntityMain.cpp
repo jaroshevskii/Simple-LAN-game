@@ -1,15 +1,15 @@
 #include <stdAfx.h>
 
 #include "EntityMain.h"
-#include <Engine\Common\Console.h>
-#include <Engine\Common\FileName.h>
-#include <Engine\Common\FileIO.h>
-#include <Engine\Common\PrintMessages.h>
+#include <Engine/Common/Console.h>
+#include <Engine/Common/FileName.h>
+#include <Engine/Common/FileIO.h>
+#include <Engine/Common/PrintMessages.h>
 
-#include <Engine\Graphics\Texture.h>
-#include <Engine\Level\Brush.h>
-#include <Engine\Level\BaseWorld.h>
-#include <Engine\DataBase\DataBase.h>
+#include <Engine/Graphics/Texture.h>
+#include <Engine/Level/Brush.h>
+#include <Engine/Level/BaseWorld.h>
+#include <Engine/DataBase/DataBase.h>
 
 bool IsClass(CEntityMain* e, const char* strClass)
 {
@@ -72,7 +72,7 @@ void CEntityMain::Load(CFileStream& file)
 {
 	m_strName = file.ReadStringFromFile();
 
-	file.ReadFromFile(&m_ulID, sizeof(unsigned long));
+	file.ReadFromFile(&m_ulID, sizeof(unsigned int));
 
 	file.ReadFromFile(&m_color, sizeof(HEXColor));
 
@@ -88,7 +88,7 @@ void CEntityMain::Load(CFileStream& file)
 	file.ReadFromFile(&m_bPhysics, sizeof(bool));
 	file.ReadFromFile(&m_numProperties, sizeof(unsigned int));
 
-	file.ReadFromFile(&m_ulFlags, sizeof(unsigned long));
+	file.ReadFromFile(&m_ulFlags, sizeof(unsigned int));
 
 	
 	float data[16];
@@ -124,7 +124,7 @@ void CEntityMain::Save(CFileStream& stream)
 
 	stream.WriteString(m_strName);
 
-	stream.WriteToFile(&m_ulID, sizeof(unsigned long));
+	stream.WriteToFile(&m_ulID, sizeof(unsigned int));
 
 	stream.WriteToFile(&m_color, sizeof(HEXColor));
 
@@ -140,7 +140,7 @@ void CEntityMain::Save(CFileStream& stream)
 	stream.WriteToFile(&m_bPhysics, sizeof(bool));
 	stream.WriteToFile(&m_numProperties, sizeof(unsigned int));
 
-	stream.WriteToFile(&m_ulFlags, sizeof(unsigned long));
+	stream.WriteToFile(&m_ulFlags, sizeof(unsigned int));
 
 
 	stream.WriteToFile(glm::value_ptr(m_matModel), sizeof(float) * 16);

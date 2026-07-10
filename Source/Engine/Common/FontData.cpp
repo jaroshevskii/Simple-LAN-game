@@ -355,7 +355,7 @@ void CFont::prepare()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// Атрибут текстурних координат
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
@@ -395,6 +395,17 @@ void CFont::Load(CFileName& strFileName)
 	m_teData = new CTextureObject;
 
 	m_ucSpaceBetweenChars = charWidth;
+
+	// .fo files may embed an absolute path from the machine they were
+	// created on (e.g. "C:\Games\In-the-Power\Data\Font\Console1.te").
+	// Keep only the portable part starting at "Data".
+	{
+		size_t dataPos = strTextureFileName.strFileName.find("Data\\");
+		if (dataPos == std::string::npos)
+			dataPos = strTextureFileName.strFileName.find("Data/");
+		if (dataPos != std::string::npos && dataPos > 0)
+			strTextureFileName = strTextureFileName.strFileName.substr(dataPos);
+	}
 
 	FileSetGlobalPatch(strTextureFileName);
 

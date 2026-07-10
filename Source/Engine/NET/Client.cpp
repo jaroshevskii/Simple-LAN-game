@@ -2,8 +2,8 @@
 
 #include "NetMain.h"
 
-#include <Engine\Common\Console.h>
-#include <Engine\Common\PrintMessages.h>
+#include <Engine/Common/Console.h>
+#include <Engine/Common/PrintMessages.h>
 
 
 char *strAddressString = NULL;

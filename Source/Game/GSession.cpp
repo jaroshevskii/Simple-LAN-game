@@ -230,7 +230,7 @@ void createCheckSumSession(unsigned int* crc)
 
 	if (!fstream.open(gameSession.gs_strFileName, 0, 1))
 	{
-		Throw("Cannot open world file \"%s\" for crc32", gameSession.gs_strFileName);
+		Throw("Cannot open world file \"%s\" for crc32", gameSession.gs_strFileName.getCharPointer());
 	}
 
 
@@ -251,7 +251,7 @@ void createCheckSumSession(unsigned int* crc)
 			bool bResult = file.open(br->m_brushPolygons[j]->tex01FileName, 0, 1);
 
 			if (!bResult) {
-				Throw("Cannot open brush texture file \"%s\" for crc32", br->m_brushPolygons[j]->tex01FileName);
+				Throw("Cannot open brush texture file \"%s\" for crc32", br->m_brushPolygons[j]->tex01FileName.getCharPointer());
 			}
 
 			file.calculateFileCRC(crc);
@@ -275,7 +275,7 @@ void createCheckSumSession(unsigned int* crc)
 			bool bResult = file.open(room->ro_polygons[j].tex01FileName, 0, 1);
 
 			if (!bResult) {
-				Throw("Cannot open room texture file \"%s\" for crc32", room->ro_polygons[j].tex01FileName);
+				Throw("Cannot open room texture file \"%s\" for crc32", room->ro_polygons[j].tex01FileName.getCharPointer());
 			}
 
 			file.calculateFileCRC(crc);

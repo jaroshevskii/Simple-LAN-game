@@ -3,7 +3,7 @@
 
 
 static std::vector<std::string> strConsoleHistory;
-static int index = 0;
+static int iHistoryIndex = 0;
 static std::string strPrintedLine;
 
 static int iConsoleHistoryPos = 0;

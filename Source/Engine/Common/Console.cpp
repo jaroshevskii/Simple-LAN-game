@@ -32,8 +32,18 @@ void CConsole::End()
 	buffer.clear();
 
 }
-void CConsole::Init(const char* strAppName) 
-{	
+void CConsole::Init(const char* strAppName)
+{
+	// the log lives in <exe dir>/System - create the directory if missing
+	std::string strSystemDir = strGlobalPatch + "System";
+#ifdef _WIN32
+	CreateDirectoryA(strSystemDir.c_str(), NULL);
+#else
+	for (size_t i = 0; i < strSystemDir.size(); ++i)
+		if (strSystemDir[i] == '\\') strSystemDir[i] = '/';
+	mkdir(strSystemDir.c_str(), 0755);
+#endif
+
 	patch = strGlobalPatch + "System\\" + strAppName;
 
 	hLog = fopen(patch.c_str(), "w");
@@ -133,7 +143,9 @@ void PrintF(const char* strFormat, ...)
 	vsprintf(str, strFormat, args);
 	printf("%s", str);
 
+#ifdef _MSC_VER
 	_RPT1(_CRT_WARN, "%s", str);
+#endif
 
 	if (pConsoleMain != NULL) 
 	{
@@ -157,7 +169,9 @@ void ConPrintF(const char* strFormat, ...)
 
 	printf("%s", str);
 
+#ifdef _MSC_VER
 	_RPT1(_CRT_WARN, "%s", str);
+#endif
 
 	va_end(args);
 

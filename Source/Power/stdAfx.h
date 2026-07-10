@@ -7,4 +7,6 @@
 #include <string.h>
 #include <stdarg.h>
 
-#include <psapi.h>
+#ifdef _WIN32
+	#include <psapi.h>
+#endif

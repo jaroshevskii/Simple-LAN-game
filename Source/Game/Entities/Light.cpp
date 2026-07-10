@@ -4,7 +4,6 @@
 
 CLight::CLight() 
 {
-	CEntityMain::CEntityMain();
 }
 
 CLight::~CLight() 
@@ -46,20 +45,20 @@ void CLight::Save(CFileStream& stream)
 {
 	HEXColor color;
 	color = OGL_toHEX(lg_colAmbient);
-	stream.WriteToFile(&color, sizeof(unsigned long));
+	stream.WriteToFile(&color, sizeof(unsigned int));
 	color = OGL_toHEX(lg_colDiffuse);
-	stream.WriteToFile(&color, sizeof(unsigned long));
+	stream.WriteToFile(&color, sizeof(unsigned int));
 	color = OGL_toHEX(lg_colSpecular);
-	stream.WriteToFile(&color, sizeof(unsigned long));
+	stream.WriteToFile(&color, sizeof(unsigned int));
 }
 
 void CLight::Load(CFileStream& stream) 
 {
 	HEXColor colA, colD, colS;
 
-	stream.ReadFromFile(&colA, sizeof(unsigned long));
-	stream.ReadFromFile(&colD, sizeof(unsigned long));
-	stream.ReadFromFile(&colS, sizeof(unsigned long));
+	stream.ReadFromFile(&colA, sizeof(unsigned int));
+	stream.ReadFromFile(&colD, sizeof(unsigned int));
+	stream.ReadFromFile(&colS, sizeof(unsigned int));
 
 	SetAmbient(colA);
 	SetDiffuse(colD);

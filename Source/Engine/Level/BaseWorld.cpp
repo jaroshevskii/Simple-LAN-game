@@ -107,7 +107,7 @@ void CGameWorld::Load(CFileName& strFileName)
 
 	file.ReadFromFile(&gw_nextRoomID, sizeof(unsigned int));
 
-	file.ReadFromFile(&gw_bckgColour, sizeof(unsigned long));
+	file.ReadFromFile(&gw_bckgColour, sizeof(unsigned int));
 
 	file.ReadFromFile(&gw_fGravity, sizeof(float));
 
@@ -208,7 +208,7 @@ void CGameWorld::LoadWithoutEntities(CFileStream& file)
 
 	file.ReadFromFile(&gw_nextRoomID, sizeof(unsigned int));
 
-	file.ReadFromFile(&gw_bckgColour, sizeof(unsigned long));
+	file.ReadFromFile(&gw_bckgColour, sizeof(unsigned int));
 
 	file.ReadFromFile(&gw_fGravity, sizeof(float));
 
@@ -341,7 +341,7 @@ void CGameWorld::SaveWithoutEntities(CFileStream& file)
 
 	file.WriteToFile(&gw_nextRoomID, sizeof(unsigned int));
 
-	file.WriteToFile(&gw_bckgColour, sizeof(unsigned long));
+	file.WriteToFile(&gw_bckgColour, sizeof(unsigned int));
 
 	file.WriteToFile(&gw_fGravity, sizeof(float));
 
@@ -533,7 +533,7 @@ void CGameWorld::Save(CFileName& strFileName)
 
 	file.WriteToFile(&gw_nextRoomID, sizeof(unsigned int));
 
-	file.WriteToFile(&gw_bckgColour, sizeof(unsigned long));
+	file.WriteToFile(&gw_bckgColour, sizeof(unsigned int));
 
 	file.WriteToFile(&gw_fGravity, sizeof(float));
 //	bytestoWrite = gw_rooms.size();

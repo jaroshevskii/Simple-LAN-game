@@ -1,0 +1,36 @@
+name: Windows
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # SDL2 and libsodium are not preinstalled on the Windows runners, so the
+      # CMake FetchContent fallback builds them from source automatically.
+      - name: Configure
+        run: cmake --preset windows
+
+      - name: Build
+        run: cmake --build --preset windows
+
+      # the Visual Studio generator puts binaries in a per-config subdirectory
+      - name: Verify runtime files
+        shell: bash
+        run: ./scripts/check-runtime-files.sh build/bin/RelWithDebInfo
+
+      - name: Test
+        run: ctest --preset windows

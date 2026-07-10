@@ -29,6 +29,7 @@ CShader shaFillColor;
 CShader shaSkyBox;
 CShader shaPolygon;
 
+#ifdef _WIN32
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     switch (ul_reason_for_call)
@@ -41,6 +42,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
     }
     return TRUE;
 }
+#endif
 
 static void compileBasicShaders(void) 
 {
@@ -133,13 +135,14 @@ void getGPUDriverInfo(void)
 
 void getGlobalAppPath()
 {
+#ifdef _WIN32
     char testEXE[256];
     GetModuleFileNameA(NULL, testEXE, sizeof(testEXE) - 1);
    // PrintF("Application patch: %s\n", testEXE);
 
     strGlobalPatch = testEXE;
 
-    
+
     size_t posOfDot = strGlobalPatch.find_last_of("\\");
 
     std::string newString = "";
@@ -150,6 +153,12 @@ void getGlobalAppPath()
     }
 
     strGlobalPatch = newString + std::string("\\");
+#else
+    // directory of the executable, with trailing separator
+    char* basePath = SDL_GetBasePath();
+    strGlobalPatch = (basePath != NULL) ? basePath : "./";
+    if (basePath != NULL) SDL_free(basePath);
+#endif
 
    // PrintF("Working In the Engine directory patch: %s\n", strGlobalPatch.c_str());
 

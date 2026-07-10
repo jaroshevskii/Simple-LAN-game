@@ -11,7 +11,7 @@ namespace CRC32
 
 	inline void add8(unsigned int* crc, unsigned char b)
 	{
-		*crc = (*crc >> 8) ^ uiCRCTable32[unsigned char(*crc) ^ b];
+		*crc = (*crc >> 8) ^ uiCRCTable32[(unsigned char)(*crc) ^ b];
 	}
 
 	inline void add16(unsigned int* crc, unsigned short s)

@@ -2,10 +2,10 @@
 
 #include "Room.h"
 
-//#include <Engine\Common\FileName.h>
-//#include <Engine\Graphics\Texture.h>
-//#include <Engine\Graphics\Shader.h>
-#include <Engine\Model\ImportOBJ.h>
+//#include <Engine/Common/FileName.h>
+//#include <Engine/Graphics/Texture.h>
+//#include <Engine/Graphics/Shader.h>
+#include <Engine/Model/ImportOBJ.h>
 
 CRoomBase* createRoomFromObj(COBJDecoder& obj, glm::mat4& mat_transform)
 {
@@ -515,7 +515,7 @@ void CRoomBase::Save(CFileStream& file)
 
 	file.WriteToFile("ROOM", sizeof(char) * 4);
 
-	file.WriteToFile(&uRoomID, sizeof(unsigned long));
+	file.WriteToFile(&uRoomID, sizeof(unsigned int));
 
 	uint numPolygons = ro_polygons.size();
 
@@ -551,7 +551,7 @@ void CRoomBase::Load(CFileStream& file)
 		return;
 	}
 
-	file.ReadFromFile(&uRoomID, sizeof(unsigned long));	
+	file.ReadFromFile(&uRoomID, sizeof(unsigned int));	
 
 	file.ReadFromFile(&numPolygons, sizeof(uint));
 

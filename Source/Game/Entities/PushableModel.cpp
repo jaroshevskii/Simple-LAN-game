@@ -4,7 +4,6 @@
 
 CPushableModel::CPushableModel()
 {
-	CPhysicsEntity::CPhysicsEntity();
 	pm_fMass = 90.f;
 	vStretch = VECTOR3(0.5f, 0.5f, 0.5f);
 }

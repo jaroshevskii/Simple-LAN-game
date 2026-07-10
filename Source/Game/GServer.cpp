@@ -98,7 +98,7 @@ void serverAnalyseMSG( Network::CNetMSGHolder* holder )
 {
 	//std::string strName;
 	std::string strTeam;
-	size_t stringLen;
+	unsigned int stringLen;
 	char strName[128];
 	unsigned short s_Id = 0;
 	byte color = 0;

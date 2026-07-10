@@ -141,7 +141,7 @@ class CEntityMain
 public:
 
 	// unique id of entity
-	unsigned long m_ulID;
+	unsigned int m_ulID;
 
 	// name of entity
 	std::string m_strName;
@@ -174,7 +174,7 @@ public:
 
 	unsigned int m_numProperties; // count of properties
 
-	unsigned long m_ulFlags;      // spawn flags
+	unsigned int m_ulFlags;      // spawn flags
 
 	CFileName m_strModel;
 	CFileName m_strTexture;

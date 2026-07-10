@@ -52,7 +52,7 @@ typedef short			int16;
 typedef int				int32;
 typedef long long		int64;
 
-typedef unsigned long	HEXColor;
+typedef unsigned int	HEXColor; // 32-bit on all platforms (matches files written on Windows)
 
 typedef unsigned int	uint;
 typedef signed int		sint;

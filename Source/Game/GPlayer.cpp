@@ -28,7 +28,6 @@ static float plr_fPowerJump = 5.f;
 
 CPlayer::CPlayer() 
 {
-	CPhysicsEntity::CPhysicsEntity();
 
 	pl_strPlayerName = stringCopy("^5Seva^8");
 	pl_strTeam = stringCopy("Default team");

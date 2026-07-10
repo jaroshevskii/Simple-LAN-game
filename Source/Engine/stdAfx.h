@@ -1,14 +1,11 @@
-// C headers (with WinApi32)
+// C headers (platform specific stuff lives in Platform.h)
 
-#include <winsock2.h>
-#include <iphlpapi.h>
-#include <ws2tcpip.h>
+#include <Engine/Common/Platform.h>
 
-#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <Math.h>
+#include <math.h>
 
 
 // C++ headers

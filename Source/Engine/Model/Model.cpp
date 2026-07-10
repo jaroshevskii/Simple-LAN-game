@@ -1,8 +1,8 @@
 #include <stdAfx.h>
 #include "Model.h"
 
-#include <Engine\Common\FileName.h>
-#include <Engine\Graphics\Shader.h>
+#include <Engine/Common/FileName.h>
+#include <Engine/Graphics/Shader.h>
 
 #include "ImportOBJ.h"
 

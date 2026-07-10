@@ -1,7 +1,13 @@
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
+#ifdef _WIN32
 #include <windows.h>
+#else
+typedef unsigned char byte;
+#define __forceinline inline
+#define __cdecl
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,7 +57,6 @@ public:
     {
         ent_Pointer = NULL;
         fTime = 0;
-        CEntity::CEntity();
     }
 public:
     virtual void MainLoop () override

@@ -29,3 +29,7 @@
 *.jpg
 *.tga
 *.dll
+# CMake build directories
+build/
+build-*/
+CMakeUserPresets.json

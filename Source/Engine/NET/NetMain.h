@@ -1,7 +1,10 @@
 #pragma once
 
-#pragma comment(lib, "IPHLPAPI.lib")
-#pragma comment(lib, "ws2_32.lib")
+#ifdef _MSC_VER
+	// with CMake these are linked from the build script; keep for old VS solution
+	#pragma comment(lib, "IPHLPAPI.lib")
+	#pragma comment(lib, "ws2_32.lib")
+#endif
 
 
 /*
@@ -235,47 +238,47 @@ namespace Network
 		CNetMSG(size_t numData);
 		~CNetMSG(void);
 
-		inline void Clear();
+		void Clear();
 
-		inline void InitMessage(size_t numData);
+		void InitMessage(size_t numData);
 
-		inline void setData(byte* data, size_t numData);
+		void setData(byte* data, size_t numData);
 
-		inline void copyData(byte* data, size_t numData);
+		void copyData(byte* data, size_t numData);
 
 		inline void setCMD(byte cmd) { msg_netCMD = cmd; }
 
 		/******** Writing methods ********/
 
 		
-		inline void write8(const byte &b);
-		inline void write16(const unsigned short &s);
-		inline void write32(const unsigned int &i);
-		inline void write64(unsigned long long &ll);
+		void write8(const byte &b);
+		void write16(const unsigned short &s);
+		void write32(const unsigned int &i);
+		void write64(unsigned long long &ll);
 
-		inline void writeFloat(const float &f);
-		inline void writeDouble(const double &d);
-		inline void writeString(std::string& str);
-		inline void writeBlock(byte* data, size_t num);
-		inline void writeVector(Vector3D& v);
+		void writeFloat(const float &f);
+		void writeDouble(const double &d);
+		void writeString(std::string& str);
+		void writeBlock(byte* data, size_t num);
+		void writeVector(Vector3D& v);
 
 		/******** Reading methods ********/
 
-		inline void read8(byte* b);
-		inline void read16(unsigned short* s);
-		inline void read32(unsigned int* i);
-		inline void read64(unsigned long long* ll);
-		inline void readFloat(float* f);
-		inline void readDouble(double* d);
-		inline void readString(std::string& str);
-		inline void readBlock(byte* data, size_t num);
-		inline void readVector(Vector3D* v);
+		void read8(byte* b);
+		void read16(unsigned short* s);
+		void read32(unsigned int* i);
+		void read64(unsigned long long* ll);
+		void readFloat(float* f);
+		void readDouble(double* d);
+		void readString(std::string& str);
+		void readBlock(byte* data, size_t num);
+		void readVector(Vector3D* v);
 
 		/******** I/O methods ********/
 
-		inline void rewindMSG(void);
-		inline void setPos(const unsigned int& newPos);
-		inline byte* getData(void);
+		void rewindMSG(void);
+		void setPos(const unsigned int& newPos);
+		byte* getData(void);
 
 		void dumpHexToFile(const std::string &strFile);
 
@@ -345,7 +348,7 @@ namespace Network
 	ENGINE_API void listenClients(CNetMSGHolder* holder);
 
 	// check if we server
-	ENGINE_API inline bool isServer(void);
+	ENGINE_API bool isServer(void);
 
 	/*
     ----------------> Client interface <----------------
