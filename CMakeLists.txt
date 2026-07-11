@@ -278,7 +278,7 @@ if(WIN32)
   )
   target_include_directories(Editor PRIVATE Source/Editor)
   target_compile_definitions(Editor PRIVATE USE_ENGINE _CRT_SECURE_NO_WARNINGS)
-  target_link_libraries(Editor PRIVATE Engine OpenGL::GL SDL2::SDL2main)
+  target_link_libraries(Editor PRIVATE Engine OpenGL::GL SDL2::SDL2main comdlg32)
 endif()
 
 # ============================================================================
